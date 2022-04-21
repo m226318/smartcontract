@@ -2,6 +2,7 @@
  #inspiration from https://vyper.readthedocs.io/en/stable/vyper-by-example.html
 
  owner: public(address)
+ winner: public(address)
  auctionStart: public(uint256)
  auctionEnd: public(uint256)
  
