@@ -1,4 +1,11 @@
-# Open Auction
+# make map address, #tickets
+#add tickets whenever they buy more to their address in map
+
+#at end of aution, create array[numticketstotal]
+#then fill with map, add num of address by num of tickets bought
+#random choose piece of array/ numer range (tickettotal)
+#payout 
+
  #inspiration from https://vyper.readthedocs.io/en/stable/vyper-by-example.html
 
  owner: public(address)
