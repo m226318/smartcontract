@@ -20,7 +20,7 @@ ticketcount: public(uint256)
 ended: public(bool)
 
 # MAP of the addresses and one address per ticket. 
-ticketMap: public(Map[address])
+ticketMap: public(Map[address, unit256])
 #todo fix map
 
 @external
@@ -72,10 +72,20 @@ def endAuction():
 
     # 3. Interaction
     
+    #make array of addresses
+    address tic[self.ticketcount]
     
+    #add to array
+    bought = ticketMap.values()
+    names = ticketMap.keys()
+    for i in range(ticketMap.size()):
+      for j in range(names[i]):
+        tic[names[i]]
+        
+    rand: uint256
+    rand = block.timestamp % self.ticketcount
     
-    #todo fill array, choose rand, return
-    #when making rand just mod time by total tickets
-    #choose self.winner ehre
+    self.winner = tic[self.rand]
+
     send(self.owner, self.currentpool*.10)
     send(self.winner, self.currentpool*.9)
