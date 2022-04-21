@@ -56,7 +56,7 @@ def buyticket():
 @view
 def show():
  #return time/ tick/ total
- return 
+ return block.timestamp and self.ticketcount and self.currentpool
  #todo return
  
 @external
