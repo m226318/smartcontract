@@ -75,7 +75,7 @@ def endAuction():
     
     
     #todo fill array, choose rand, return
-    
+    #when making rand just mod time by total tickets
     #choose self.winner ehre
     send(self.owner, self.currentpool*.10)
     send(self.winner, self.currentpool*.9)
