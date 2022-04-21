@@ -1,4 +1,26 @@
-#to make a raffle smart contract
+#to make a raffle smart contract'
+
 #needs a buy ticket func
+   take money input + gas and % bby ticket cost to get # tickets, add address to list that # of times
+  return positive feedback
+  
+  
 #needs a time left func
+  return to user how much time is left in raffle and pot total amount and ticket total amount/ chance of winning
+  
+  
 #needs a payout func
+  after time expires payout to randomly selected winner and contract owner
+  send you didnt win to everyone else/ good luck next time 
+
+  
+#needs a set func
+  for owner to setup smart contract, need address as key to unlock it, set cost of ticket, time limit, and cut % off top
+
+
+
+hardest part is ticking clock and ticket cost(if dynamic)
+
+
+
+
