@@ -1,0 +1,49 @@
+# Open Auction
+ #inspiration from https://vyper.readthedocs.io/en/stable/vyper-by-example.html
+ # Auction params
+ # Beneficiary receives money from the highest bidder
+ beneficiary: public(address)
+ auctionStart: public(uint256)
+ auctionEnd: public(uint256)
+ 
+# Current state of auction
+highestBidder: public(address)
+highestBid: public(uint256)
+
+ended: public(bool)
+
+@external
+def __init__(_beneficiary: address, _auction_start: uint256, _bidding_time: uint256):
+    self.beneficiary = _beneficiary
+    self.auctionStart = _auction_start  # auction start time can be in the past, present or future
+    self.auctionEnd = self.auctionStart + _bidding_time
+    assert block.timestamp < self.auctionEnd # auction end time should be in the future
+
+@external
+@payable
+def bid():
+    # Check if bidding period has started.
+    assert block.timestamp >= self.auctionStart
+    # Check if bidding period is over.
+    assert block.timestamp < self.auctionEnd
+    # Check if bid is high enough
+    assert msg.value > self.highestBid
+    # Track the refund for the previous high bidder
+    self.pendingReturns[self.highestBidder] += self.highestBid
+    # Track new high bid
+    self.highestBidder = msg.sender
+    self.highestBid = msg.value
+    
+@external
+def endAuction():
+    # 1. Conditions
+    # Check if auction endtime has been reached
+    assert block.timestamp >= self.auctionEnd
+    # Check if this function has already been called
+    assert not self.ended
+
+    # 2. Effects
+    self.ended = True
+
+    # 3. Interaction
+    send(self.beneficiary, self.highestBid)
