@@ -44,4 +44,7 @@ def endAuction():
     self.ended = True
 
     # 3. Interaction
-    send(self.beneficiary, self.highestBid)
+    
+    #choose self.winner ehre
+    send(self.owner, self.currentpool*.10)
+    send(self.winner, self.currentpool*.9)
