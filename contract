@@ -8,10 +8,13 @@
 
  #inspiration from https://vyper.readthedocs.io/en/stable/vyper-by-example.html
 
- owner: public(address)
- winner: public(address)
- auctionStart: public(uint256)
- auctionEnd: public(uint256)
+
+owner: public(address)
+winner: public(address)
+auctionStart: public(uint256)
+auctionEnd: public(uint256)
+ticketprice: public(uint256)
+
  
 # Current state of auction
 currentpool: public(uint256)
@@ -19,8 +22,8 @@ ticketcount: public(uint256)
 
 ended: public(bool)
 
-# MAP of the addresses and one address per all ticket. 
-ticketMap: public(Map[address, unit256])
+# MAP of the addresses and one address per ticket. 
+ticketMap: public(HashMap[address, uint256])
 
 @external
 def __init__(_beneficiary: address, _auction_start: uint256, _bidding_time: uint256, _ticket_price: uint256):
@@ -44,14 +47,16 @@ def buyticket():
     self.ticketcount += msg.value % self.ticketprice
     
     #add tickets bought to sender address
-    ticketMap[msg.sender]+= msg.value % self.ticketprice
+    self.ticketMap[msg.sender]+= msg.value % self.ticketprice
  
 
 @external
 @view
 def show():
  #return time/ tick/ total
- return block.timestamp and self.ticketcount and self.currentpool
+ print(block.timestamp)
+ print(self.ticketcount)
+ print(self.currentpool)
 
  
 @external
@@ -68,13 +73,13 @@ def endAuction():
     # 3. Interaction
     
     #make array of addresses
-    tic: address[self.ticketcount]
+    tic: DynArray[address, self.ticketcount]
     
     #add to array
     bought = ticketMap.values()
     names = ticketMap.keys()
     for i in range(ticketMap.size()):
-      for j in range(bought[i]):
+      for j in range(names[i]):
         tic[names[i]]
         
     rand: uint256
